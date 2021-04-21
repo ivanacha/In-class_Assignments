@@ -1,9 +1,9 @@
 /**
- * File: csci1302/ch16/MileageCalculator.java
+ * File: csci1302/ch16/MileageCalculatorWithConversion.java
  * Package: ch16
- * @author Christopher Williams
+ * @author Ivan Acha
  * Created on: Apr 12, 2017
- * Last Modified: Apr 16, 2019
+ * Last Modified: Apr 21, 2020
  * Description:  
  */
 package progAssignment;
@@ -31,6 +31,9 @@ public class MileageCalculatorWithConversion extends Application {
     private String altMileage = "Kilometers";
     private String altCapacity = "Liters";
     private String altResult = "L/100KM";
+    private String customStyle = "-fx-text-fill: linear-gradient(lime, white); -fx-font-weight: bold;";
+    private String bgURL = "url(http://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/52cf024e-4cc2-4480-aa9b-192e14e46400/d9gft23-fea5307b-945b-49f2-9212-5b5d0283b27a.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvNTJjZjAyNGUtNGNjMi00NDgwLWFhOWItMTkyZTE0ZTQ2NDAwXC9kOWdmdDIzLWZlYTUzMDdiLTk0NWItNDlmMi05MjEyLTViNWQwMjgzYjI3YS5naWYifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.gTC5cL7yLSAsim01TzDDxttpn1rClgHIQoEJ16C0DOw)";
+
     
     // create UI components split by type
     private Button btnCalc = new Button("Calculate");
@@ -56,18 +59,24 @@ public class MileageCalculatorWithConversion extends Application {
     	// set list of Strings for the ComboBox
     	cbBox.getItems().addAll(items);
     	
-        // set preferences for UI components
+        // set preferences for TextFields and ComboBox
         tfDistance.setMaxWidth(txtWidth);
         tfCapacity.setMaxWidth(txtWidth);
         tfResult.setMaxWidth(txtWidth);
         tfResult.setEditable(false);
     	cbBox.setValue(items.get(0));
-
+    	
+    	// set preferences for UI
+    	lblDistance.setStyle(customStyle);
+    	lblCapacity.setStyle(customStyle);
+    	lblResult.setStyle(customStyle);
+    	lblEffType.setStyle(customStyle);
         
         // create a main grid pane to hold items
         mainPane.setPadding(new Insets(10.0));
         mainPane.setHgap(txtWidth/2.0);
         mainPane.setVgap(txtWidth/12.0);
+        mainPane.setStyle("-fx-background-image: " + bgURL + ";");
         
         // add items to mainPane
         mainPane.add(lblEffType, 0, 0);
@@ -90,12 +99,13 @@ public class MileageCalculatorWithConversion extends Application {
         btnReset.setOnAction(e -> resetForm());
         
         // create a scene and place it in the stage
-        Scene scene = new Scene(mainPane); 
+        Scene scene = new Scene(mainPane, 300, 200); 
         
         // set and show stage
         primaryStage.setTitle("Mileage Calculator"); 
         primaryStage.setScene(scene); 
         primaryStage.show();      
+        primaryStage.setResizable(false);
         
         // stick default focus in first field for usability
         tfDistance.requestFocus();
